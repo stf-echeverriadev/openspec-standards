@@ -20,13 +20,13 @@ client-side data for authorization decisions beyond UX hints.
 
 ### Requirement: Attaching the token to requests
 The JWT MUST be attached to requests to protected endpoints through the
-centralized API client, typically as an `Authorization: ****** header.
-Tokens MUST NOT be passed in URLs or query strings.
+centralized API client, typically as an `Authorization` header using the
+`Bearer` scheme. Tokens MUST NOT be passed in URLs or query strings.
 
 #### Scenario: Calling a protected endpoint
 - GIVEN an authenticated user
 - WHEN the app calls a protected endpoint
-- THEN the API client adds the `Authorization: ****** header
+- THEN the API client adds an `Authorization` header using the `Bearer` scheme
 - AND the token is never placed in the URL
 
 ### Requirement: Token storage and exposure
