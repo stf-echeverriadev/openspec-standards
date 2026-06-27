@@ -6,8 +6,8 @@ conventions across all of my projects. It is an [OpenSpec](https://github.com/Fi
 no application code.
 
 - **Frontend** projects share one stack, so they share `openspec/specs/frontend/`.
-- **Backend** projects share another stack, so they will share
-  `openspec/specs/backend/` _(pending — see that folder's README)_.
+- **Backend** projects share another stack, so they share
+  `openspec/specs/backend/` (Java 21, Spring Boot, SQL Server).
 - **Cross-cutting** standards live in `openspec/specs/shared/`.
 
 Other repos consume this store **by reference** (read-only). They cite it; they
@@ -32,7 +32,12 @@ openspec-standards/
     │   │   ├── auth/           # JWT handling on the client
     │   │   ├── testing/        # Vitest
     │   │   └── quality/        # lint, format, naming, accessibility
-    │   ├── backend/            # pending — reserved for the shared backend stack
+    │   ├── backend/            # shared standards for all backend projects
+    │   │   ├── stack/          # Java 21, Spring Boot, Maven
+    │   │   ├── api/            # REST conventions, status codes, errors
+    │   │   ├── data/           # SQL Server, Spring Data JPA, Flyway
+    │   │   ├── auth/           # Spring Security + JWT
+    │   │   └── testing/        # JUnit 5
     │   └── shared/             # cross-cutting: git, security, ci-cd
     └── changes/
         └── archive/            # completed change proposals
@@ -53,6 +58,22 @@ These standards assume every frontend project uses the same stack:
 | Icons              | react-icons       |
 | Testing            | Vitest            |
 | Auth               | JWT               |
+
+## The current backend stack
+
+These standards assume every backend project uses the same stack:
+
+| Concern            | Technology              |
+| ------------------ | ----------------------- |
+| Language / runtime | Java 21 (LTS)           |
+| Framework          | Spring Boot             |
+| Build tool         | Maven                   |
+| Database           | Microsoft SQL Server    |
+| Data access        | Spring Data JPA         |
+| Migrations         | Flyway                  |
+| API style          | REST over HTTP (JSON)   |
+| Testing            | JUnit 5                 |
+| Auth               | Spring Security + JWT   |
 
 ## How specs are written
 
@@ -87,7 +108,7 @@ cite these standards read-only.
    ```
 
 Frontend projects rely on `specs/frontend/` + `specs/shared/`; backend projects
-will rely on `specs/backend/` + `specs/shared/`.
+rely on `specs/backend/` + `specs/shared/`.
 
 > Even without the CLI, every `spec.md` is plain Markdown and can be read
 > directly by people and AI assistants.

@@ -2,10 +2,54 @@
 
 ## Purpose
 Defines how application state is managed and how data is fetched from backend
-APIs across frontend projects, including separation of server state from UI
-state and consistent request handling.
+APIs across frontend projects, including the approved state management approaches
+(Context API and Redux), separation of server state from UI state, and consistent
+request handling.
 
 ## Requirements
+
+### Requirement: Approved UI state management approaches
+For global UI state, projects MUST use either the React Context API or Redux
+(with Redux Toolkit). Other global state libraries (e.g. MobX, Zustand, Recoil)
+MUST NOT be introduced without a change proposal in this store.
+
+#### Scenario: Choosing a state tool
+- GIVEN a project needs to share UI state across components
+- WHEN the developer adds global state
+- THEN they use either the Context API or Redux Toolkit
+- AND no alternative global state library is introduced without a change
+  proposal
+
+### Requirement: Prefer Redux for complex state
+Projects MUST use Redux (Redux Toolkit) when the global UI state is complex —
+large objects, many interrelated fields, or frequent updates from multiple parts
+of the app — and SHOULD reserve the Context API for simple, low-frequency state
+(e.g. theme, current user, feature toggles).
+
+#### Scenario: Large, complex shared state
+- GIVEN global state is a large object with many interrelated fields updated
+  from several features
+- WHEN the developer selects a state approach
+- THEN they use Redux Toolkit
+- AND they do not manage that complex state through ad-hoc nested contexts
+
+#### Scenario: Simple shared state
+- GIVEN a small, infrequently changing value such as the UI theme
+- WHEN the developer shares it across the app
+- THEN the Context API is an acceptable choice
+- AND Redux is not required for that value
+
+### Requirement: Redux state stays serializable and out of server state
+When Redux is used, its store MUST hold serializable UI state and MUST NOT be
+used as the long-term source of truth for server data (see the server vs UI
+state requirement). Side effects and API calls MUST go through the service layer,
+not raw fetches inside reducers.
+
+#### Scenario: Storing fetched data in Redux
+- GIVEN data fetched from an API
+- WHEN a developer considers placing it in the Redux store
+- THEN the store is not treated as the canonical cache for that server data
+- AND non-serializable values are not placed in the store
 
 ### Requirement: Separate server state from UI state
 Projects MUST distinguish **server state** (data fetched from APIs) from **UI

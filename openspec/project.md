@@ -9,8 +9,8 @@ for **architecture, file-system layout, and code conventions**.
 - **Frontend projects** share one common stack and therefore one set of frontend
   specs (`openspec/specs/frontend/`).
 - **Backend projects** share another common stack and therefore one set of
-  backend specs (`openspec/specs/backend/`). _Backend is pending; see
-  `openspec/specs/backend/README.md`._
+  backend specs (`openspec/specs/backend/`). The shared backend stack is Java 21,
+  Spring Boot, Maven, and SQL Server.
 - **Cross-cutting standards** that apply to both live in
   `openspec/specs/shared/`.
 
@@ -63,4 +63,4 @@ references:
 ```
 
 Frontend projects rely on `specs/frontend/` + `specs/shared/`; backend projects
-will rely on `specs/backend/` + `specs/shared/`.
+rely on `specs/backend/` + `specs/shared/`.
